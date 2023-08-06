@@ -18,18 +18,18 @@ export function MainNav({
   return (
     <nav
       className={cn(
-        "absolute flex w-full top-0 z-20 items-center bg-background border-b dark:border-b px-2 md:px-6 py-3",
-        className
+        "absolute top-0 z-20 flex w-full items-center border-b bg-background px-2 py-3 dark:border-b md:px-6",
+        className,
       )}
       {...props}
     >
-      <div className="flex items-center space-x-4 lg:space-x-6 mr-auto">
+      <div className="mr-auto flex items-center space-x-4 lg:space-x-6">
         <Link
           href="/"
-          className="flex gap-0.5 justify-center items-center text-lg font-medium transition-colors hover:text-primary"
+          className="flex items-center justify-center gap-0.5 text-lg font-medium transition-colors hover:text-primary"
         >
           <Image src="/assets/logo.svg" alt="logo" width={40} height={40} />
-          <span className="hidden xs:inline text-2xl hover:text-primary/80">
+          <span className="hidden text-2xl hover:text-primary/80 xs:inline">
             strings
           </span>
         </Link>
