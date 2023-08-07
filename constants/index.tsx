@@ -21,7 +21,7 @@ export const sideBarLinks = [
   {
     icon: <ImagePlus width={ICON_SIZE} height={ICON_SIZE} />,
     route: "/create-thread",
-    label: "Create Thread",
+    label: "Create String",
   },
   {
     icon: <Users width={ICON_SIZE} height={ICON_SIZE} />,

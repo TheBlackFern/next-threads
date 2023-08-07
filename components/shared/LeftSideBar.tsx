@@ -25,7 +25,7 @@ const LeftSideBar = (props: Props) => {
               href={link.route}
               key={link.label}
               className={`relative flex items-center justify-start gap-4 rounded-lg p-4 text-primary ${
-                isActive && " bg-fuchsia-200 dark:bg-fuchsia-600"
+                isActive && " bg-action"
               }`}
             >
               {/* TODO  make it a nice and reusable bg colour*/}

@@ -1,9 +1,19 @@
-import AccountProfile from "@/components/forms/AccountProfile";
+import AccountForm from "@/components/forms/Account";
+import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
 async function Page() {
   const user = await currentUser();
-  const userInfo = {};
+  if (!user)
+    return (
+      <main className="mx-auto flex max-w-3xl flex-col justify-start p-10">
+        <h1 className="text-3xl font-bold text-primary">Oops...</h1>
+        <p className="mt-3 text-base text-primary">
+          Something went wrong. Please, reload and try again.
+        </p>
+      </main>
+    );
+  const userInfo = await fetchUser(user?.id);
 
   const userData = {
     id: user?.id!,
@@ -20,7 +30,7 @@ async function Page() {
         Complete your profile now to use Strings
       </p>
       <section className="mt-9 bg-background">
-        <AccountProfile userData={userData} btnTitle="Continue" />
+        <AccountForm userData={userData} btnTitle="Continue" />
       </section>
     </main>
   );

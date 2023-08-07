@@ -1,9 +1,10 @@
 "use server";
 
-import { GeneralUserInfo } from "@/components/forms/AccountProfile";
+import { GeneralUserInfo } from "@/components/forms/Account";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import { getErrorMessage } from "../utils";
 
 type Params = {
   userId: string;
@@ -16,7 +17,6 @@ export async function updateUser({
   userData,
   path,
 }: Params): Promise<void> {
-  console.log(userId, userData, path);
   connectToDB();
   try {
     await User.findOneAndUpdate(
@@ -27,7 +27,22 @@ export async function updateUser({
     if (path === "/profile/edit") {
       revalidatePath(path);
     }
-  } catch (error: any) {
-    throw new Error(`Failed to create or update the user: ${error.message}`);
+  } catch (error) {
+    throw new Error(
+      `Failed to create or update the user: ${getErrorMessage(error)}`,
+    );
+  }
+}
+
+export async function fetchUser(userId: string) {
+  try {
+    connectToDB();
+    return User.findOne({ id: userId });
+    // .populate({
+    //   path: "Communities",
+    //   model: Community,
+    // })
+  } catch (error) {
+    throw new Error(`Failed to fetch user: ${getErrorMessage(error)}`);
   }
 }

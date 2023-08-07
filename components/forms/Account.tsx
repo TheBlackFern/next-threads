@@ -38,7 +38,7 @@ type Props = {
   btnTitle: string;
 };
 
-const AccountProfile = ({ userData, btnTitle }: Props) => {
+const AccountForm = ({ userData, btnTitle }: Props) => {
   const [files, setFiles] = React.useState<File[]>([]);
   const { startUpload } = useUploadThing("media");
   const router = useRouter();
@@ -213,4 +213,4 @@ const AccountProfile = ({ userData, btnTitle }: Props) => {
   );
 };
 
-export default AccountProfile;
+export default AccountForm;
