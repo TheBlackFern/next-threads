@@ -1,4 +1,4 @@
-import AccountForm from "@/components/forms/Account";
+import AccountForm from "@/components/forms/AccountForm";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 

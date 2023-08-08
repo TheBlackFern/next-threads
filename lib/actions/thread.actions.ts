@@ -35,8 +35,9 @@ export async function createThread({
 }
 
 export async function fetchThreads(pageNumber = 1, pageSize = 20) {
-  const skipNumber = (pageNumber - 1) * pageSize;
   connectToDB();
+
+  const skipNumber = (pageNumber - 1) * pageSize;
   const threadsQuery = Thread.find({
     parentId: { $in: [null, undefined] },
   })

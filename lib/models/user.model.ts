@@ -1,4 +1,4 @@
-import { GeneralUserInfo } from "@/components/forms/Account";
+import { GeneralUserInfo } from "@/components/forms/AccountForm";
 import mongoose, { Model, Schema } from "mongoose";
 
 export interface IUser extends GeneralUserInfo, mongoose.Document {

@@ -1,4 +1,4 @@
-import ThreadForm from "@/components/forms/Thread";
+import ThreadForm from "@/components/forms/ThreadForm";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";

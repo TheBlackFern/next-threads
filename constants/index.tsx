@@ -20,7 +20,7 @@ export const sideBarLinks = [
   },
   {
     icon: <ImagePlus width={ICON_SIZE} height={ICON_SIZE} />,
-    route: "/create-thread",
+    route: "/create-string",
     label: "Create String",
   },
   {
