@@ -19,14 +19,14 @@ export default async function Home() {
     <>
       <h1 className="text-left text-3xl font-bold text-primary">Home</h1>
 
-      <section className="mt-5">
+      <section className="mt-5 flex flex-col gap-5">
         {res.threads.length === 0 ? (
           <p className="text-center text-base text-muted-foreground">
             No strings attached!
           </p>
         ) : (
           res.threads.map((thread) => (
-            <ThreadCard thread={thread} user={user} />
+            <ThreadCard thread={thread} user={user} key={thread.id} />
           ))
         )}
       </section>

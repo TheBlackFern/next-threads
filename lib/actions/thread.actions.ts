@@ -4,7 +4,6 @@ import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { getErrorMessage } from "../utils";
 import Thread, { IThread } from "../models/thread.model";
-import { SkipBack } from "lucide-react";
 
 type Params = {
   text: string;

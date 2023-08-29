@@ -5,6 +5,6 @@ export const threadSchema = z.object({
     .string()
     .nonempty()
     .min(3, { message: "String at least 3 characters together." })
-    .max(30, { message: "Your name is too long." }),
+    .max(250, { message: "Too long." }),
   accountId: z.string(),
 });

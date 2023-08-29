@@ -24,6 +24,7 @@ type Props = {
 };
 
 const ThreadForm = ({ userId }: Props) => {
+  const inputText = React.useRef();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -60,13 +61,28 @@ const ThreadForm = ({ userId }: Props) => {
               <FormLabel className="text-base font-semibold text-primary">
                 Content
               </FormLabel>
-              <FormControl>
+              <FormControl ref={inputText}>
                 <Textarea
-                  rows={6}
+                  rows={4}
                   placeholder="The whether is great!"
                   {...field}
                 />
               </FormControl>
+              <p
+                className={`text-sm ${
+                  inputText
+                    ? inputText?.current.value.length > 250
+                      ? "text-destructive"
+                      : "text-muted-foreground"
+                    : ""
+                }`}
+              >
+                {inputText
+                  ? inputText?.current.value.length > 200
+                    ? `${inputText?.current?.value.length} / 250`
+                    : ""
+                  : ""}
+              </p>
               <FormMessage />
             </FormItem>
           )}
