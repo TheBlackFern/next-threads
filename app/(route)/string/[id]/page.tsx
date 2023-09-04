@@ -31,7 +31,7 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <section className="relative">
-      <ThreadCard thread={thread} user={user} />
+      <ThreadCard thread={thread} currentUserId={user.id} />
       <CommentForm
         className="mt-7"
         threadId={params.id}
@@ -43,7 +43,7 @@ const Page = async ({ params }: PageProps) => {
           <ThreadCard
             isComment={true}
             thread={child}
-            user={user}
+            currentUserId={user.id}
             key={child.id}
           />
         ))}

@@ -15,7 +15,7 @@ export default async function Home() {
     );
   return (
     <>
-      <h1 className="text-left text-3xl font-bold text-primary">Home</h1>
+      <h1 className="text-left text-3xl font-bold">Home</h1>
 
       <section className="mt-5 flex flex-col gap-5">
         {res.threads.length === 0 ? (

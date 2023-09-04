@@ -1,5 +1,4 @@
 import { IThread } from "@/lib/models/thread.model";
-import { User } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,11 +7,11 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
   thread: IThread;
-  user: User;
+  currentUserId: string;
   isComment?: boolean;
 }
 
-const ThreadCard = ({ thread, user, isComment }: ThreadCardProps) => {
+const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
   return (
     <Card
       className={`relative w-full bg-secondary ${
