@@ -4,8 +4,9 @@ import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { getErrorMessage } from "../utils";
 import Thread, { IThread } from "../models/thread.model";
+import { revalidatePath } from "next/cache";
 
-type Params = {
+type createThreadParams = {
   text: string;
   author: string;
   community: string | null;
@@ -17,17 +18,55 @@ export async function createThread({
   author,
   community,
   path,
-}: Params): Promise<void> {
+}: createThreadParams): Promise<void> {
   connectToDB();
   try {
     const newThread = await Thread.create({
       text,
       author,
-      community: null,
+      community: community,
     });
     await User.findByIdAndUpdate(author, {
       $push: { threads: newThread.id },
     });
+
+    revalidatePath(path);
+  } catch (error) {
+    throw new Error(`Failed to create a thread: ${getErrorMessage(error)}`);
+  }
+}
+
+type createCommentParams = {
+  text: string;
+  author: string;
+  community: string | null;
+  path: string;
+  parent: string;
+};
+
+export async function createComment({
+  text,
+  author,
+  community,
+  path,
+  parent,
+}: createCommentParams): Promise<void> {
+  connectToDB();
+  try {
+    const parentThread = await Thread.findById(parent);
+    if (!parentThread) throw new Error("Thread not found!");
+
+    const comment = new Thread({
+      text: text,
+      author: author,
+      community: community,
+      parentId: parent,
+    });
+    const childThread = await comment.save();
+
+    parentThread.children.push(childThread._id);
+    await parentThread.save();
+    revalidatePath(path);
   } catch (error) {
     throw new Error(`Failed to create a thread: ${getErrorMessage(error)}`);
   }
@@ -43,13 +82,13 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
     .sort({ createdAt: "desc" })
     .skip(skipNumber)
     .limit(pageSize)
-    .populate({ path: "author", model: "User" })
+    .populate({ path: "author", model: User })
     .populate({
       path: "children",
       populate: {
         path: "author",
         model: User,
-        select: "_id name parentId image",
+        select: "_id name username parentId image",
       },
     });
 
@@ -60,4 +99,43 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
   const hasNext = threadsCount > skipNumber + threads.length;
 
   return { threads, hasNext };
+}
+
+export async function fetchThreadById(id: string) {
+  connectToDB();
+
+  // TODO: community
+  try {
+    const thread = await Thread.findById(id)
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id id username name image",
+      })
+      .populate({
+        path: "children",
+        model: Thread,
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id id username name parentId image",
+          },
+          {
+            path: "children",
+            model: Thread,
+            populate: {
+              path: "author",
+              model: User,
+              select: "_id id username name parentId image",
+            },
+          },
+        ],
+      })
+      .exec();
+
+    return thread;
+  } catch (error) {
+    throw new Error(`Failed to fetch thread: ${getErrorMessage(error)}`);
+  }
 }

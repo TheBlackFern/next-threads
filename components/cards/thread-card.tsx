@@ -14,8 +14,12 @@ interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ThreadCard = ({ thread, user, isComment }: ThreadCardProps) => {
   return (
-    <Card className="relative w-full bg-secondary">
-      <CardContent className="mt-8 flex gap-3">
+    <Card
+      className={`relative w-full bg-secondary ${
+        isComment ? "border-0 bg-background" : ""
+      }`}
+    >
+      <CardContent className="mt-8 flex gap-3 pb-3">
         <Link className="" href={`/profile/${thread.author.id}`}>
           <div className="relative h-12 w-12">
             <Image
@@ -25,6 +29,7 @@ const ThreadCard = ({ thread, user, isComment }: ThreadCardProps) => {
               alt="profile photo"
               className="cursor-pointer rounded-full object-cover"
             />
+            <div className="absolute left-1/2 top-full mt-3 h-12 w-0.5 rounded-full bg-muted-foreground" />
           </div>
         </Link>
         <div className="flex flex-col">
@@ -45,51 +50,48 @@ const ThreadCard = ({ thread, user, isComment }: ThreadCardProps) => {
           <p className="w-auto whitespace-pre-wrap break-all ">{thread.text}</p>
         </div>
       </CardContent>
-      <CardFooter>
-        <div className="flex gap-4">
-          <div className="w-0.5 rounded-full bg-muted-foreground" />
-          <div className="flex flex-col">
-            <div className="flex gap-3">
+      <CardFooter className="">
+        <div className="ml-14 flex flex-col gap-1">
+          <div className="flex gap-3">
+            <Image
+              src="/assets/heart-gray.svg"
+              alt="heart icon"
+              width={24}
+              height={24}
+              className="cursor-pointer object-contain"
+            />
+            <Link href={`/string/${thread.id}`}>
               <Image
-                src="/assets/heart-gray.svg"
-                alt="heart icon"
+                src="/assets/reply.svg"
+                alt="reply icon"
                 width={24}
                 height={24}
                 className="cursor-pointer object-contain"
               />
-              <Link href="/thread/${thread.id}">
-                <Image
-                  src="/assets/reply.svg"
-                  alt="reply icon"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
-                />
-              </Link>
-              <Image
-                src="/assets/repost.svg"
-                alt="repost icon"
-                width={24}
-                height={24}
-                className="cursor-pointer object-contain"
-              />
-              <Image
-                src="/assets/share.svg"
-                alt="share icon"
-                width={24}
-                height={24}
-                className="cursor-pointer object-contain"
-              />
-            </div>
-            {/* isComment && thread.children.length > 0 */}
-            {true && (
-              <Link href={`/thread/&{id}`}>
-                <p className="mt-1 text-xs font-medium ">
-                  {thread.children.length} replies
-                </p>
-              </Link>
-            )}
+            </Link>
+            <Image
+              src="/assets/repost.svg"
+              alt="repost icon"
+              width={24}
+              height={24}
+              className="cursor-pointer object-contain"
+            />
+            <Image
+              src="/assets/share.svg"
+              alt="share icon"
+              width={24}
+              height={24}
+              className="cursor-pointer object-contain"
+            />
           </div>
+          {/* isComment && thread.children.length > 0 */}
+          {true && (
+            <Link href={`/string/${thread.id}`}>
+              <p className="ml-1 text-xs font-medium ">
+                {thread.children.length} replies
+              </p>
+            </Link>
+          )}
         </div>
       </CardFooter>
     </Card>

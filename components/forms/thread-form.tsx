@@ -25,7 +25,6 @@ type ThreadFormProps = {
 
 const ThreadForm = ({ userId }: ThreadFormProps) => {
   const inputText = React.useRef<HTMLTextAreaElement | null>(null);
-  const router = useRouter();
   const pathname = usePathname();
 
   const form = useForm<z.infer<typeof threadSchema>>({
@@ -37,14 +36,15 @@ const ThreadForm = ({ userId }: ThreadFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof threadSchema>) {
+    // TODO: community
     await createThread({
       text: values.thread,
-      author: values.accountId,
+      author: userId,
       community: null,
       path: pathname,
     });
 
-    router.push("/");
+    form.reset();
   }
 
   return (
@@ -62,11 +62,7 @@ const ThreadForm = ({ userId }: ThreadFormProps) => {
                 Content
               </FormLabel>
               <FormControl ref={inputText}>
-                <Textarea
-                  rows={4}
-                  placeholder="The whether is great!"
-                  {...field}
-                />
+                <Textarea rows={4} placeholder="Your string..." {...field} />
               </FormControl>
               <p
                 className={`text-sm ${

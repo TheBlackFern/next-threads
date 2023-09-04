@@ -8,3 +8,11 @@ export const threadSchema = z.object({
     .max(250, { message: "Too long." }),
   accountId: z.string(),
 });
+
+export const commentSchema = z.object({
+  thread: z
+    .string()
+    .nonempty()
+    .min(3, { message: "String at least 3 characters together." })
+    .max(250, { message: "Too long." }),
+});
