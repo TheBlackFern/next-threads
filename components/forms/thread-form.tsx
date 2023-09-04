@@ -19,12 +19,12 @@ import {
 import { Textarea } from "../ui/textarea";
 import { createThread } from "@/lib/actions/thread.actions";
 
-type Props = {
+type ThreadFormProps = {
   userId: string;
 };
 
-const ThreadForm = ({ userId }: Props) => {
-  const inputText = React.useRef();
+const ThreadForm = ({ userId }: ThreadFormProps) => {
+  const inputText = React.useRef<HTMLTextAreaElement | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -70,14 +70,14 @@ const ThreadForm = ({ userId }: Props) => {
               </FormControl>
               <p
                 className={`text-sm ${
-                  inputText
-                    ? inputText?.current.value.length > 250
+                  inputText.current
+                    ? inputText.current.value.length > 250
                       ? "text-destructive"
                       : "text-muted-foreground"
                     : ""
                 }`}
               >
-                {inputText
+                {inputText.current
                   ? inputText?.current.value.length > 200
                     ? `${inputText?.current?.value.length} / 250`
                     : ""

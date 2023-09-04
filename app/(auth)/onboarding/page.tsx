@@ -1,24 +1,29 @@
-import AccountForm from "@/components/forms/AccountForm";
+import AccountForm from "@/components/forms/account-form";
+import ErrorMessage from "@/components/ui/error";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
 async function Page() {
   const user = await currentUser();
+
   if (!user)
     return (
       <main className="mx-auto flex max-w-3xl flex-col justify-start p-10">
-        <h1 className="text-3xl font-bold text-primary">Oops...</h1>
-        <p className="mt-3 text-base text-primary">
-          Something went wrong. Please, reload and try again.
-        </p>
+        <ErrorMessage
+          message="It appears you are not logged in. You must sign in before you can use
+  Strings."
+        />
       </main>
     );
+
   const userInfo = await fetchUser(user?.id);
+
+  if (!userInfo) return <ErrorMessage />;
 
   const userData = {
     id: user?.id!,
     objectId: userInfo?._id,
-    username: userInfo?.username || user?.username,
+    username: userInfo?.username || user?.username || "",
     name: userInfo?.name || user?.firstName || "",
     bio: userInfo?.bio || "",
     image: userInfo?.image || user?.imageUrl,

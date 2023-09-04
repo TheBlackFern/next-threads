@@ -1,16 +1,18 @@
-import { GeneralUserInfo } from "@/components/forms/AccountForm";
-import mongoose, { Model, Schema } from "mongoose";
+import { GeneralUserInfo } from "@/components/forms/account-form";
+import mongoose from "mongoose";
+import { IThread } from "./thread.model";
+import { ICommunity } from "./community.model";
 
 export interface IUser extends GeneralUserInfo, mongoose.Document {
   id: string;
-  threads: mongoose.Schema.Types.ObjectId[];
-  communities: mongoose.Schema.Types.ObjectId[];
+  threads: IThread[];
+  communities: ICommunity[];
   onboarded: boolean;
 }
 
 // TODO: make TS work!
 
-const userModel: Schema = new mongoose.Schema({
+const userModel = new mongoose.Schema({
   id: { type: String, required: true },
   name: { type: String, required: true },
   image: { type: String, required: true },
@@ -34,7 +36,7 @@ const userModel: Schema = new mongoose.Schema({
   ],
 });
 
-const User: Model<IUser> =
+const User: mongoose.Model<IUser> =
   mongoose.models.User || mongoose.model("User", userModel);
 
 export default User;

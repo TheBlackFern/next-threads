@@ -30,7 +30,7 @@ export type GeneralUserInfo = {
   image: string;
 };
 
-type Props = {
+type AccountFormProps = {
   userData: {
     id: string;
     objectId: string;
@@ -38,7 +38,7 @@ type Props = {
   btnTitle: string;
 };
 
-const AccountForm = ({ userData, btnTitle }: Props) => {
+const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
   const [files, setFiles] = React.useState<File[]>([]);
   const { startUpload } = useUploadThing("media");
   const router = useRouter();

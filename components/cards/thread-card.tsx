@@ -6,13 +6,13 @@ import React from "react";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
   thread: IThread;
   user: User;
-  isComment: boolean;
+  isComment?: boolean;
 }
 
-const ThreadCard = ({ thread, user, isComment }: Props) => {
+const ThreadCard = ({ thread, user, isComment }: ThreadCardProps) => {
   return (
     <Card className="relative w-full bg-secondary">
       <CardContent className="mt-8 flex gap-3">
@@ -81,6 +81,7 @@ const ThreadCard = ({ thread, user, isComment }: Props) => {
                 className="cursor-pointer object-contain"
               />
             </div>
+            {/* isComment && thread.children.length > 0 */}
             {true && (
               <Link href={`/thread/&{id}`}>
                 <p className="mt-1 text-xs font-medium ">
@@ -88,7 +89,6 @@ const ThreadCard = ({ thread, user, isComment }: Props) => {
                 </p>
               </Link>
             )}
-            {/* isComment && thread.children.length > 0 */}
           </div>
         </div>
       </CardFooter>

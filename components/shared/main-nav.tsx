@@ -7,7 +7,7 @@ import { LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dark } from "@clerk/themes";
 import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
-import { ModeToggle } from "../ModeToggle";
+import { ModeToggle } from "../mode-toggle";
 
 export function MainNav({
   className,

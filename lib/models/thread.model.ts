@@ -1,17 +1,19 @@
-import mongoose, { Schema, Model } from "mongoose";
+import mongoose from "mongoose";
+import { IUser } from "./user.model";
+import { ICommunity } from "./community.model";
 
 export interface IThread extends mongoose.Document {
   text: string;
-  author: mongoose.Schema.Types.ObjectId;
-  community: mongoose.Schema.Types.ObjectId;
+  author: IUser;
+  community: ICommunity;
   created: Date;
   parentId: string;
-  children: mongoose.Schema.Types.ObjectId[];
+  children: IThread[];
 }
 
 // TODO: make TS work!
 
-const threadModel: Schema = new mongoose.Schema({
+const threadModel = new mongoose.Schema<IThread>({
   text: { type: String, required: true },
   author: {
     type: mongoose.Schema.Types.ObjectId,
@@ -37,7 +39,7 @@ const threadModel: Schema = new mongoose.Schema({
   ],
 });
 
-const Thread: Model<IThread> =
+const Thread: mongoose.Model<IThread> =
   mongoose.models.Thread || mongoose.model("Thread", threadModel);
 
 export default Thread;

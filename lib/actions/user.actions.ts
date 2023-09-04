@@ -1,6 +1,6 @@
 "use server";
 
-import { GeneralUserInfo } from "@/components/forms/AccountForm";
+import { GeneralUserInfo } from "@/components/forms/account-form";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";

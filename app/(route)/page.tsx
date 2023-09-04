@@ -1,4 +1,5 @@
-import ThreadCard from "@/components/cards/ThreadCard";
+import ThreadCard from "@/components/cards/thread-card";
+import ErrorMessage from "@/components/ui/error";
 import { fetchThreads } from "@/lib/actions/thread.actions";
 import { currentUser } from "@clerk/nextjs";
 
@@ -7,13 +8,10 @@ export default async function Home() {
   const res = await fetchThreads(1, 30);
   if (!user)
     return (
-      <>
-        <h1 className="text-left text-3xl font-bold text-primary">Oops...</h1>
-        <p className="mt-3 text-base text-primary">
-          It appears you are not logged in. You must sign in before you can use
-          Strings.
-        </p>
-      </>
+      <ErrorMessage
+        message="It appears you are not logged in. You must sign in before you can use
+    Strings"
+      />
     );
   return (
     <>

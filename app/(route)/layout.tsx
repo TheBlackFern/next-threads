@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
 
 import { ClerkProvider } from "@clerk/nextjs/app-beta";

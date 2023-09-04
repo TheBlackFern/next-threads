@@ -13,7 +13,7 @@ const LeftSideBar = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   return (
-    <section className="custom-scrollbar sticky left-0 top-0 z-0 flex h-screen w-fit flex-col justify-between overflow-auto border-r bg-background pb-5 pt-28 max-md:hidden">
+    <aside className="custom-scrollbar sticky left-0 top-0 z-0 flex h-screen w-fit flex-col justify-between overflow-auto border-r bg-background pb-5 pt-28 max-md:hidden">
       <div className="flex w-full flex-1 flex-col gap-2 px-6">
         {sideBarLinks.map((link) => {
           const isActive =
@@ -46,7 +46,7 @@ const LeftSideBar = (props: Props) => {
           </SignedIn>
         </div>
       </div>
-    </section>
+    </aside>
   );
 };
 

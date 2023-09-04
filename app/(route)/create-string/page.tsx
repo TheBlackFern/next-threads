@@ -1,4 +1,5 @@
 import ThreadForm from "@/components/forms/ThreadForm";
+import ErrorMessage from "@/components/ui/error";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -9,11 +10,10 @@ async function Page() {
   if (!user)
     return (
       <>
-        <h1 className="text-left text-3xl font-bold text-primary">Oops...</h1>
-        <p>
-          It appears you are not logged in. You must sign in before you can
-          create Strings.
-        </p>
+        <ErrorMessage
+          message="It appears you are not logged in. You must sign in before you can
+          create Strings."
+        />
       </>
     );
 
