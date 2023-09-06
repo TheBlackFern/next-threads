@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import Avatar from "../ui/avatar";
 
 interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
   thread: IThread;
@@ -21,12 +22,11 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
       <CardContent className="mt-8 flex gap-3 pb-3">
         <Link className="" href={`/profile/${thread.author.id}`}>
           <div className="relative h-12 w-12">
-            <Image
+            <Avatar
               width={48}
               height={48}
               src={thread.author.image}
-              alt="profile photo"
-              className="cursor-pointer rounded-full object-cover"
+              alt="author's profile photo"
             />
             <div className="absolute left-1/2 top-full mt-3 h-12 w-0.5 rounded-full bg-muted-foreground" />
           </div>

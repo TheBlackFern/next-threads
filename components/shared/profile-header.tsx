@@ -1,13 +1,12 @@
-import { IUser } from "@/lib/models/user.model";
 import React from "react";
-import Image from "next/image";
+import Avatar from "../ui/avatar";
+import { IUser } from "@/lib/models/user.model";
 
 type Props = {
   userInfo: IUser;
   userId: string;
 };
 
-// TODO: make an avatar component
 // TODO: community
 const ProfileHeader = ({ userInfo, userId }: Props) => {
   return (
@@ -15,11 +14,11 @@ const ProfileHeader = ({ userInfo, userId }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="relative h-20 w-20 object-cover">
-            <Image
+            <Avatar
+              height={96}
+              width={96}
               src={userInfo.image}
               alt="profile picture"
-              fill
-              className="shadown-2xl rounded-full object-cover"
             />
           </div>
           <div className="flex-1">

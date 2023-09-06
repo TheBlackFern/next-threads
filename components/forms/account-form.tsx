@@ -22,6 +22,7 @@ import { Textarea } from "../ui/textarea";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { updateUser } from "@/lib/actions/user.actions";
+import Avatar from "../ui/avatar";
 
 export type GeneralUserInfo = {
   username: string;
@@ -76,6 +77,7 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
       fileReader.readAsDataURL(file);
     }
   }
+
   async function onSubmit(values: z.infer<typeof userSchema>) {
     const blob = values.image;
     const isValid = isBase64Image(blob);
@@ -110,26 +112,20 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
           name="image"
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
-              <FormLabel className="!important flex h-24 w-24 items-center justify-center rounded-full">
+              <FormLabel className="flex h-24 w-24 items-center justify-center rounded-full">
                 {field.value ? (
-                  // both Image's width and height and w-h classes are required
-                  // as the former is forced by the Image and the latter is required
-                  // for it not not stretch when the image's aspect ration is not 1:1
-                  <Image
+                  <Avatar
                     src={field.value}
+                    alt={"profile photo"}
                     width={96}
                     height={96}
-                    alt="profile photo"
-                    className="h-24 w-24 rounded-full object-cover"
-                    priority
                   />
                 ) : (
-                  <Image
-                    src="/assets/profile.svg"
-                    alt="profile photo"
-                    width={36}
-                    height={36}
-                    className=" object-contain"
+                  <Avatar
+                    src={"/assets/profile.svg"}
+                    alt={"profile photo"}
+                    width={96}
+                    height={96}
                   />
                 )}
               </FormLabel>

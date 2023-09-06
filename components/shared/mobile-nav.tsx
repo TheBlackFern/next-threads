@@ -22,7 +22,7 @@ const MobileNav = (props: Props) => {
             <Link
               href={link.route}
               key={link.label}
-              className={`relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 ${
+              className={`relative flex flex-col items-center gap-2 rounded-lg p-2 hover:invert-[0.2] sm:flex-1 sm:px-2 sm:py-2.5 ${
                 isActive && " bg-fuchsia-200 dark:bg-fuchsia-600"
               }`}
             >

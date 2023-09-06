@@ -23,8 +23,7 @@ async function Page() {
 
   return (
     <>
-      <h1 className="text-left text-3xl font-bold">Create String</h1>
-      <ThreadForm userId={userInfo._id} />
+      <ThreadForm userId={userInfo._id} userImage={userInfo.image} />
     </>
   );
 }

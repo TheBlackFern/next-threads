@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
 import { createComment } from "@/lib/actions/thread.actions";
+import Avatar from "../ui/avatar";
 
 type CommentFormProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -70,12 +71,11 @@ const CommentForm = ({
           render={({ field }) => (
             <FormItem className="flex w-full flex-row items-center gap-3 space-y-0">
               <FormLabel className="space-y-0 text-base font-semibold text-primary">
-                <Image
+                <Avatar
                   src={currentUserAvatar}
-                  alt="current user avatar"
                   width={48}
                   height={48}
-                  className="rounded-full object-cover"
+                  alt="current user's profile photo"
                 />
                 <span className="sr-only">Comment</span>
               </FormLabel>
