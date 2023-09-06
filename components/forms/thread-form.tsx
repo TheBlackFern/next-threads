@@ -73,7 +73,7 @@ const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
           name="thread"
           render={({ field }) => (
             <FormItem className="flex flex-col items-start">
-              <FormLabel className="sr-only text-base font-semibold text-primary">
+              <FormLabel className="sr-only text-base font-semibold">
                 String content
               </FormLabel>
               <FormControl ref={inputText}>

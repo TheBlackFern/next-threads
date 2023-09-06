@@ -28,7 +28,7 @@ const ThreadsTab = async ({
         <div className="flex flex-col items-center justify-center gap-3">
           <p className="text-lg">Your strings will appear here!</p>
           <Link href={"/create-string"}>
-            <Button className="rounded-full text-lg font-medium">
+            <Button className="rounded-full px-5 py-6 text-lg font-medium">
               Create a string
             </Button>
           </Link>

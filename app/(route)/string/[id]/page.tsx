@@ -29,6 +29,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (!thread) return <ErrorMessage />;
 
+  // TODO: sorting
   return (
     <section className="relative">
       <ThreadCard thread={thread} currentUserId={user.id} />
@@ -39,7 +40,7 @@ const Page = async ({ params }: PageProps) => {
         currentUserId={JSON.stringify(userInfo._id)}
       />
       <div className="mt-10">
-        {thread.children.map((child) => (
+        {thread.children.reverse().map((child) => (
           <ThreadCard
             isComment={true}
             thread={child}

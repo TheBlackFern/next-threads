@@ -2,25 +2,18 @@ import React from "react";
 import Avatar from "../ui/avatar";
 import { IUser } from "@/lib/models/user.model";
 
-type Props = {
+type ProfileHeaderProps = {
   userInfo: IUser;
   userId: string;
 };
 
 // TODO: community
-const ProfileHeader = ({ userInfo, userId }: Props) => {
+const ProfileHeader = ({ userInfo, userId }: ProfileHeaderProps) => {
   return (
-    <div className="flex w-full flex-col justify-start ">
+    <div className="flex w-full flex-col justify-start">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="relative h-20 w-20 object-cover">
-            <Avatar
-              height={96}
-              width={96}
-              src={userInfo.image}
-              alt="profile picture"
-            />
-          </div>
+          <Avatar size="xl" src={userInfo.image} alt="profile picture" />
           <div className="flex-1">
             <h2 className="text-left text-xl font-bold">{userInfo.name}</h2>
             <p className="font-medium text-muted-foreground">

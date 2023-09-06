@@ -1,15 +1,36 @@
 import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-type AvatarProps = React.ComponentProps<typeof Image>;
+const avatarVariants = cva("rounded-full border object-cover", {
+  variants: {
+    size: {
+      default: "h-12 w-12",
+      sm: "h-10 w-10",
+      lg: "h-16 w-16",
+      xl: "h-24 w-24",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+type AvatarProps = React.ComponentProps<typeof Image> &
+  VariantProps<typeof avatarVariants>;
+
+const imageSize = {
+  default: 48,
+  sm: 40,
+  lg: 64,
+  xl: 96,
+};
 
 const Avatar = ({
   className,
   alt,
   src,
-  width = 48,
-  height = 48,
+  size = "default",
   ...props
 }: AvatarProps) => {
   return (
@@ -18,13 +39,10 @@ const Avatar = ({
     // for it not not stretch when the image's aspect ration is not 1:1
     <Image
       src={src}
-      width={width}
-      height={height}
+      width={imageSize[size!]}
+      height={imageSize[size!]}
       alt={alt}
-      className={cn(
-        `h-[${height}] w-[${width}] rounded-full border object-cover`,
-        className,
-      )}
+      className={cn(avatarVariants({ size }), className)}
       priority
       {...props}
     />

@@ -114,18 +114,12 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
             <FormItem className="flex items-center gap-4">
               <FormLabel className="flex h-24 w-24 items-center justify-center rounded-full">
                 {field.value ? (
-                  <Avatar
-                    src={field.value}
-                    alt={"profile photo"}
-                    width={96}
-                    height={96}
-                  />
+                  <Avatar src={field.value} alt={"profile photo"} size="xl" />
                 ) : (
                   <Avatar
                     src={"/assets/profile.svg"}
                     alt={"profile photo"}
-                    width={96}
-                    height={96}
+                    size="xl"
                   />
                 )}
               </FormLabel>
@@ -192,7 +186,7 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
               <FormControl>
                 <Textarea
                   rows={4}
-                  placeholder="I love cats and dogs."
+                  placeholder="Something about you..."
                   {...field}
                 />
               </FormControl>

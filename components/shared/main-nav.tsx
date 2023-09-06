@@ -18,7 +18,7 @@ export function MainNav({
   return (
     <nav
       className={cn(
-        "absolute top-0 z-20 flex w-full items-center border-b bg-background px-8 py-3 dark:border-b md:px-12",
+        "fixed top-0 z-20 flex w-full items-center border-b bg-background px-8 py-3 dark:border-b md:px-12",
         className,
       )}
       {...props}

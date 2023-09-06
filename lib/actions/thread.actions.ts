@@ -19,8 +19,8 @@ export async function createThread({
   community,
   path,
 }: createThreadParams): Promise<void> {
-  connectToDB();
   try {
+    connectToDB();
     const newThread = await Thread.create({
       text,
       author,
@@ -51,8 +51,8 @@ export async function createComment({
   path,
   parent,
 }: createCommentParams): Promise<void> {
-  connectToDB();
   try {
+    connectToDB();
     const parentThread = await Thread.findById(parent);
     if (!parentThread) throw new Error("Thread not found!");
 
@@ -73,39 +73,42 @@ export async function createComment({
 }
 
 export async function fetchThreads(pageNumber = 1, pageSize = 20) {
-  connectToDB();
+  try {
+    connectToDB();
 
-  const skipNumber = (pageNumber - 1) * pageSize;
-  const threadsQuery = Thread.find({
-    parentId: { $in: [null, undefined] },
-  })
-    .sort({ createdAt: "desc" })
-    .skip(skipNumber)
-    .limit(pageSize)
-    .populate({ path: "author", model: User })
-    .populate({
-      path: "children",
-      populate: {
-        path: "author",
-        model: User,
-        select: "_id name username parentId image",
-      },
+    const skipNumber = (pageNumber - 1) * pageSize;
+    const threadsQuery = Thread.find({
+      parentId: { $in: [null, undefined] },
+    })
+      .sort({ createdAt: "desc" })
+      .skip(skipNumber)
+      .limit(pageSize)
+      .populate({ path: "author", model: User })
+      .populate({
+        path: "children",
+        populate: {
+          path: "author",
+          model: User,
+          select: "_id name username parentId image",
+        },
+      });
+
+    const threadsCount = await Thread.countDocuments({
+      parentId: { $in: [null, undefined] },
     });
+    const threads = await threadsQuery.exec();
+    const hasNext = threadsCount > skipNumber + threads.length;
 
-  const threadsCount = await Thread.countDocuments({
-    parentId: { $in: [null, undefined] },
-  });
-  const threads = await threadsQuery.exec();
-  const hasNext = threadsCount > skipNumber + threads.length;
-
-  return { threads, hasNext };
+    return { threads, hasNext };
+  } catch (error) {
+    throw new Error(`Failed to fetch threads: ${getErrorMessage(error)}`);
+  }
 }
 
 export async function fetchThreadById(id: string) {
-  connectToDB();
-
   // TODO: community
   try {
+    connectToDB();
     const thread = await Thread.findById(id)
       .populate({
         path: "author",
@@ -141,10 +144,9 @@ export async function fetchThreadById(id: string) {
 }
 
 export async function fetchThreadsByUser(userId: string) {
-  connectToDB();
-
   // TODO: community
   try {
+    connectToDB();
     const threads = await User.findOne({ id: userId }).populate({
       path: "threads",
       model: Thread,

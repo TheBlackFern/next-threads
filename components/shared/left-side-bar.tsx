@@ -45,13 +45,14 @@ const LeftSideBar = (props: Props) => {
             </Link>
           );
         })}
-        <div className="mt-auto hidden h-full items-end justify-start gap-4 p-4 md:flex">
+        <div className="mt-auto hidden items-end justify-start gap-4 p-4 hover:bg-accent hover:text-accent-foreground md:flex">
           <SignedIn>
             <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-              <LogOut height={28} width={28} className="cursor-pointer" />
+              <span className="flex cursor-pointer gap-4 leading-relaxed max-lg:hidden">
+                <LogOut height={24} width={24} />
+                Logout
+              </span>
             </SignOutButton>
-
-            <span className="leading-relaxed max-lg:hidden">Logout</span>
           </SignedIn>
         </div>
       </div>

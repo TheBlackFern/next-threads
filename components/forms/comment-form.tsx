@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,6 +18,7 @@ import {
 import { Input } from "../ui/input";
 import { createComment } from "@/lib/actions/thread.actions";
 import Avatar from "../ui/avatar";
+import { cn } from "@/lib/utils";
 
 type CommentFormProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -37,7 +36,6 @@ const CommentForm = ({
   className,
 }: CommentFormProps) => {
   const inputText = React.useRef<HTMLInputElement | null>(null);
-  const router = useRouter();
   const pathname = usePathname();
 
   const form = useForm<z.infer<typeof commentSchema>>({
@@ -56,14 +54,17 @@ const CommentForm = ({
       path: pathname,
       parent: threadId,
     });
-
-    router.push("/");
+    // TODO: reset form!
+    inputText.current!.value = "";
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-5 flex flex-row items-center justify-center gap-3"
+        className={cn(
+          "mt-5 flex flex-row items-center justify-center gap-3",
+          className,
+        )}
       >
         <FormField
           control={form.control}
@@ -73,8 +74,6 @@ const CommentForm = ({
               <FormLabel className="space-y-0 text-base font-semibold text-primary">
                 <Avatar
                   src={currentUserAvatar}
-                  width={48}
-                  height={48}
                   alt="current user's profile photo"
                 />
                 <span className="sr-only">Comment</span>

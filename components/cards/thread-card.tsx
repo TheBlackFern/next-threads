@@ -22,12 +22,7 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
       <CardContent className="mt-8 flex gap-3 pb-3">
         <Link className="" href={`/profile/${thread.author.id}`}>
           <div className="relative h-12 w-12">
-            <Avatar
-              width={48}
-              height={48}
-              src={thread.author.image}
-              alt="author's profile photo"
-            />
+            <Avatar src={thread.author.image} alt="author's profile photo" />
             <div className="absolute left-1/2 top-full mt-3 h-12 w-0.5 rounded-full bg-muted-foreground" />
           </div>
         </Link>
