@@ -26,7 +26,9 @@ const ThreadsTab = async ({
     <section className="mt-9 flex flex-col gap-10">
       {res.threads.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-3">
-          <p className="text-lg">Your strings will appear here!</p>
+          <p className="text-balance text-center text-lg">
+            Your strings will appear here!
+          </p>
           <Link href={"/create-string"}>
             <Button className="rounded-full px-5 py-6 text-lg font-medium">
               Create a string
@@ -34,7 +36,7 @@ const ThreadsTab = async ({
           </Link>
         </div>
       )}
-      {res.threads.map((thread) => {
+      {res.threads.reverse().map((thread) => {
         //TODO: community
         // because we have a massive object with random types, we cannot just change
         // it or make a deep/structured clone

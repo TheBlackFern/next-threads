@@ -79,6 +79,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 .cl-organizationSwitcherTrigger .cl-userPreview .cl-userPreviewTextContainer {

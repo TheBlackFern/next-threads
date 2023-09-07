@@ -25,10 +25,10 @@ const UserCard = ({ user, userType }: UserCardProps) => {
           <div className="min-[351px]:hidden">
             <Avatar src={user.image} alt="user's profile photo" size="xl" />
           </div>
-          <div className="flex flex-col items-start">
-            <p className="text-ellipsis font-semibold">{user.name}</p>
-            <p className="text-sm font-medium text-muted-foreground">
-              @{user.username}
+          <div className="mr-2 flex flex-col items-start">
+            <p className="line-clamp-1 break-all font-semibold">{user.name}</p>
+            <p className="line-clamp-1 break-all text-sm font-medium text-muted-foreground">
+              {`@${user.username}`}
             </p>
             <Button
               onClick={() => router.push(`/profile/${user.id}`)}

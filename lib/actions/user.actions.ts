@@ -1,11 +1,12 @@
 "use server";
 
 import { GeneralUserInfo } from "@/components/forms/account-form";
-import User, { IUser } from "../models/user.model";
+import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "../utils";
 import { FilterQuery, Query, SortOrder } from "mongoose";
+import Thread, { IThread } from "../models/thread.model";
 
 type UpdateUserParams = {
   userId: string;
@@ -56,6 +57,7 @@ type FetchUsersParams = {
   sortBy?: SortOrder;
 };
 
+//TODO: hello typescript my old friend
 export async function fetchUsers({
   userId,
   searchString = "",
@@ -90,6 +92,31 @@ export async function fetchUsers({
     const hasNext = usersCount > skipNumber + users.length;
 
     return { users, hasNext };
+  } catch (error) {
+    throw new Error(`Failed to fetch users: ${getErrorMessage(error)}`);
+  }
+}
+
+export async function fetchActivity(userId: string) {
+  try {
+    connectToDB();
+
+    const userThreads = await Thread.find({ author: userId })
+      .populate({
+        path: "author",
+        model: User,
+        select: "id username name image",
+      })
+      .populate({
+        path: "children",
+        model: Thread,
+        populate: {
+          path: "author",
+          model: User,
+          select: "id username name image",
+        },
+      });
+    return userThreads;
   } catch (error) {
     throw new Error(`Failed to fetch users: ${getErrorMessage(error)}`);
   }

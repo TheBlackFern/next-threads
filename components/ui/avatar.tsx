@@ -3,11 +3,17 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const avatarVariants = cva("rounded-full border object-cover", {
+// this entire setup is here because of the problems that
+// arise if the profile photo is not square/circular
+// also, when inside a flex container, <Image/> elements
+// shrink to accomodate other elements, but shrink just on one
+// axis, which makes it an ellipsoid instead of a circle
+const sizeVariants = cva("relative shrink-0", {
   variants: {
     size: {
       default: "h-12 w-12",
-      sm: "h-10 w-10",
+      xs: "h-5 w-5",
+      sm: "h-8 w-8",
       lg: "h-16 w-16",
       xl: "h-24 w-24",
     },
@@ -17,14 +23,14 @@ const avatarVariants = cva("rounded-full border object-cover", {
   },
 });
 type AvatarProps = React.ComponentProps<typeof Image> &
-  VariantProps<typeof avatarVariants>;
+  VariantProps<typeof sizeVariants>;
 
-const imageSize = {
-  default: 48,
-  sm: 40,
-  lg: 64,
-  xl: 96,
-};
+// const pixelValues = {
+//   default: 48,
+//   sm: 32,
+//   lg: 64,
+//   xl: 96,
+// };
 
 const Avatar = ({
   className,
@@ -34,18 +40,19 @@ const Avatar = ({
   ...props
 }: AvatarProps) => {
   return (
-    // both Image's width and height and w-h classes are required
-    // as the former is forced by the Image and the latter is required
-    // for it not not stretch when the image's aspect ration is not 1:1
-    <Image
-      src={src}
-      width={imageSize[size!]}
-      height={imageSize[size!]}
-      alt={alt}
-      className={cn(avatarVariants({ size }), className)}
-      priority
-      {...props}
-    />
+    <div className={cn(sizeVariants({ size }), className)}>
+      <Image
+        src={src}
+        alt={alt}
+        // width={pixelValues[size!]}
+        // height={pixelValues[size!]}
+        className="rounded-full border"
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+        {...props}
+      />
+    </div>
   );
 };
 

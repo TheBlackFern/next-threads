@@ -45,7 +45,7 @@ const LeftSideBar = (props: Props) => {
             </Link>
           );
         })}
-        <div className="mt-auto hidden items-end justify-start gap-4 p-4 hover:bg-accent hover:text-accent-foreground md:flex">
+        <div className="mb-5 mt-auto hidden items-end justify-start gap-4 p-4 hover:bg-accent hover:text-accent-foreground md:flex">
           <SignedIn>
             <SignOutButton signOutCallback={() => router.push("/sign-in")}>
               <span className="flex cursor-pointer gap-4 leading-relaxed max-lg:hidden">

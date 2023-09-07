@@ -10,12 +10,10 @@ async function Page() {
 
   if (!user)
     return (
-      <>
-        <ErrorMessage
-          message="It appears you are not logged in. You must sign in before you can
+      <ErrorMessage
+        message="It appears you are not logged in. You must sign in before you can
           create Strings."
-        />
-      </>
+      />
     );
 
   const userInfo = await fetchUser(user.id);
@@ -28,10 +26,11 @@ async function Page() {
     pageSize: 20,
   });
 
+  //TODO: decide whether to keep the Search and Activity headings
   return (
     <>
-      <h1 className="text-xl font-semibold">Search</h1>
-      <div className="mt-5 grid grid-cols-1 gap-2  min-[690px]:grid-cols-2 min-[765px]:grid-cols-1 min-[810px]:grid-cols-2 xl:grid-cols-3">
+      <h1 className="text-2xl font-semibold">Search</h1>
+      <div className="mt-5 grid grid-cols-1 gap-2  min-[690px]:grid-cols-2 min-[765px]:grid-cols-1 min-[810px]:grid-cols-2 min-[1500px]:grid-cols-3">
         {res.users.length === 0 && (
           <p className="text-lg font-semibold">No users were found!</p>
         )}

@@ -4,11 +4,11 @@ import Image from "next/image";
 import { profileTabs } from "@/constants";
 import { cn } from "@/lib/utils";
 
-type ProfileTabsProps = {
+type TabsProfileProps = {
   threadsCount: number;
 };
 
-const TabsProfile = ({ threadsCount }: ProfileTabsProps) => {
+const TabsProfile = ({ threadsCount }: TabsProfileProps) => {
   return (
     <TabsList className="flex h-auto flex-1">
       {profileTabs.map((tab) => (

@@ -72,6 +72,7 @@ export async function createComment({
   }
 }
 
+//TODO: hello typescript my old friend
 export async function fetchThreads(pageNumber = 1, pageSize = 20) {
   try {
     connectToDB();
@@ -147,21 +148,28 @@ export async function fetchThreadsByUser(userId: string) {
   // TODO: community
   try {
     connectToDB();
-    const threads = await User.findOne({ id: userId }).populate({
+    const userWithThreads = await User.findOne({ id: userId }).populate({
       path: "threads",
       model: Thread,
-      populate: {
-        path: "children",
-        model: Thread,
-        populate: {
+      populate: [
+        {
+          path: "children",
+          model: Thread,
+          populate: {
+            path: "author",
+            model: User,
+            select: "name image id username",
+          },
+        },
+        {
           path: "author",
           model: User,
           select: "name image id username",
         },
-      },
+      ],
     });
 
-    return threads;
+    return userWithThreads;
   } catch (error) {
     throw new Error(`Failed to fetch threads: ${getErrorMessage(error)}`);
   }

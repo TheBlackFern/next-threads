@@ -19,12 +19,10 @@ async function Page({ params }: PageProps) {
 
   if (!user)
     return (
-      <>
-        <ErrorMessage
-          message="It appears you are not logged in. You must sign in before you can
+      <ErrorMessage
+        message="It appears you are not logged in. You must sign in before you can
           create Strings."
-        />
-      </>
+      />
     );
 
   const userInfo = await fetchUser(params.id);

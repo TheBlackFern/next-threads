@@ -78,7 +78,7 @@ const CommentForm = ({
                 />
                 <span className="sr-only">Comment</span>
               </FormLabel>
-              <div className="flex w-full flex-col gap-1">
+              <div className="relative flex w-full flex-col gap-1">
                 <FormControl ref={inputText}>
                   <Input type="text" placeholder="Comment..." {...field} />
                 </FormControl>

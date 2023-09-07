@@ -29,14 +29,14 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
         <div className="flex flex-col">
           <div className="flex">
             <Link className="flex gap-3" href={`/profile/${thread.author.id}`}>
-              <span className="hidden w-fit cursor-pointer text-ellipsis font-semibold sm:inline">
+              <span className="line-clamp-1 hidden w-fit cursor-pointer break-all font-semibold sm:inline">
                 {`${thread.author.name}`}
               </span>
-              <span className="w-fit cursor-pointer text-ellipsis text-muted-foreground">
+              <span className="line-clamp-1 w-fit cursor-pointer break-all text-muted-foreground">
                 {`\@${thread.author.username}`}
               </span>
             </Link>
-            <span className="ml-2 flex w-fit gap-2 text-muted-foreground">
+            <span className="ml-2 hidden w-fit gap-2 text-muted-foreground sm:flex">
               <span className="text-[26px] font-bold leading-none">·</span>
               {`${thread.created.toLocaleDateString()}`}
             </span>

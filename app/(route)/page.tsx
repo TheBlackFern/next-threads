@@ -23,13 +23,15 @@ export default async function Home() {
             No strings attached!
           </p>
         ) : (
-          res.threads.map((thread) => (
-            <ThreadCard
-              thread={thread}
-              currentUserId={user.id}
-              key={thread.id}
-            />
-          ))
+          res.threads
+            .reverse()
+            .map((thread) => (
+              <ThreadCard
+                thread={thread}
+                currentUserId={user.id}
+                key={thread.id}
+              />
+            ))
         )}
       </section>
     </>
