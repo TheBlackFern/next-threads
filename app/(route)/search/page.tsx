@@ -36,6 +36,7 @@ async function Page() {
         )}
         {res.users.map((user) => (
           <>
+            {/* TODO: remove dups */}
             <UserCard user={user} userType={"User"} key={user.id} />
             <UserCard user={user} userType={"User"} key={user.id} />
             <UserCard user={user} userType={"User"} key={user.id} />

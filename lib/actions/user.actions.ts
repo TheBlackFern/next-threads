@@ -1,12 +1,12 @@
 "use server";
 
 import { GeneralUserInfo } from "@/components/forms/account-form";
-import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "../utils";
 import { FilterQuery, Query, SortOrder } from "mongoose";
-import Thread, { IThread } from "../models/thread.model";
+import User from "../models/user.model";
+import Thread from "../models/thread.model";
 
 type UpdateUserParams = {
   userId: string;
@@ -21,6 +21,7 @@ export async function updateUser({
 }: UpdateUserParams): Promise<void> {
   try {
     connectToDB();
+
     await User.findOneAndUpdate(
       { id: userId },
       { ...userData, onboarded: true },

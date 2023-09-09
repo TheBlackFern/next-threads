@@ -1,10 +1,10 @@
 "use server";
 
-import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { getErrorMessage } from "../utils";
-import Thread, { IThread } from "../models/thread.model";
 import { revalidatePath } from "next/cache";
+import User from "../models/user.model";
+import Thread from "../models/thread.model";
 
 type createThreadParams = {
   text: string;
@@ -50,7 +50,7 @@ export async function createComment({
   community,
   path,
   parent,
-}: createCommentParams): Promise<void> {
+}: createCommentParams) {
   try {
     connectToDB();
     const parentThread = await Thread.findById(parent);
