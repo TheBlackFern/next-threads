@@ -7,15 +7,7 @@ import { redirect } from "next/navigation";
 async function Page() {
   const user = await currentUser();
 
-  if (!user)
-    return (
-      <main className="mx-auto flex max-w-3xl flex-col justify-start p-10">
-        <ErrorMessage
-          message="It appears you are not logged in. You must sign in before you can use
-  Strings."
-        />
-      </main>
-    );
+  if (!user) redirect("/sign-in");
 
   const userInfo = await fetchUser(user?.id);
   if (userInfo?.onboarded) redirect("/");

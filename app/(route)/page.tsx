@@ -2,17 +2,12 @@ import ThreadCard from "@/components/cards/thread-card";
 import ErrorMessage from "@/components/ui/error";
 import { fetchThreads } from "@/lib/actions/thread.actions";
 import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const user = await currentUser();
   const res = await fetchThreads(1, 30);
-  if (!user)
-    return (
-      <ErrorMessage
-        message="It appears you are not logged in. You must sign in before you can use
-    Strings"
-      />
-    );
+  if (!user) redirect("/sign-in");
   return (
     <>
       <h1 className="sr-only text-left text-3xl font-bold">Feed</h1>

@@ -7,13 +7,7 @@ import { redirect } from "next/navigation";
 async function Page() {
   const user = await currentUser();
 
-  if (!user)
-    return (
-      <ErrorMessage
-        message="It appears you are not logged in. You must sign in before you can
-          create Strings."
-      />
-    );
+  if (!user) redirect("/sign-in");
 
   const userInfo = await fetchUser(user.id);
 

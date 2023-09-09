@@ -16,10 +16,7 @@ const Page = async ({ params }: PageProps) => {
   if (!params.id) return <ErrorMessage />;
   const user = await currentUser();
 
-  if (!user)
-    return (
-      <ErrorMessage message="It appears you are not logged in. You must sign in before you can use Strings" />
-    );
+  if (!user) redirect("/sign-in");
 
   const userInfo = await fetchUser(user.id);
 
