@@ -148,9 +148,7 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
           name="name"
           render={({ field }) => (
             <FormItem className="flex flex-col items-start">
-              <FormLabel className="text-base font-semibold text-primary">
-                Name
-              </FormLabel>
+              <FormLabel className="text-base font-semibold">Name</FormLabel>
               <FormControl>
                 <Input type="text" placeholder="John Doe" {...field} />
               </FormControl>
@@ -164,7 +162,7 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
           name="username"
           render={({ field }) => (
             <FormItem className="flex flex-col items-start">
-              <FormLabel className="text-base font-semibold text-primary">
+              <FormLabel className="text-base font-semibold">
                 Username
               </FormLabel>
               <FormControl>
@@ -180,9 +178,7 @@ const AccountForm = ({ userData, btnTitle }: AccountFormProps) => {
           name="bio"
           render={({ field }) => (
             <FormItem className="flex flex-col items-start">
-              <FormLabel className="text-base font-semibold text-primary">
-                Bio
-              </FormLabel>
+              <FormLabel className="text-base font-semibold">Bio</FormLabel>
               <FormControl>
                 <Textarea
                   rows={4}

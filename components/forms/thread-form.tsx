@@ -59,8 +59,6 @@ const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
         <div className="flex flex-row items-center justify-between">
           <Avatar
             src={userImage}
-            width={48}
-            height={48}
             alt="user's profile photo"
             className="border"
           />

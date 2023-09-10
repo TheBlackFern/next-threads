@@ -32,13 +32,19 @@ const LeftSideBar = (props: Props) => {
               href={link.route}
               key={link.label}
               className={cn(
-                `relative flex items-center justify-start gap-4 rounded-lg p-4 text-primary hover:bg-accent hover:text-accent-foreground`,
+                `relative flex items-center justify-start gap-4 rounded-lg p-4 hover:bg-accent hover:text-accent-foreground`,
                 isActive &&
-                  "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-secondary/90",
+                  "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground/90",
               )}
             >
-              {/* TODO  make it a nice and reusable bg colour*/}
-              {link.icon}
+              <span
+                className={cn(
+                  "text-primary",
+                  isActive && "text-primary-foreground",
+                )}
+              >
+                {link.icon}
+              </span>
               <span className="leading-relaxed max-lg:hidden">
                 {link.label}
               </span>
@@ -48,9 +54,11 @@ const LeftSideBar = (props: Props) => {
         <div className="mb-5 mt-auto hidden items-end justify-start gap-4 p-4 hover:bg-accent hover:text-accent-foreground md:flex">
           <SignedIn>
             <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-              <span className="flex cursor-pointer gap-4 leading-relaxed max-lg:hidden">
-                <LogOut height={24} width={24} />
-                Logout
+              <span className="flex cursor-pointer gap-4 leading-relaxed max-md:hidden">
+                <span className="text-primary">
+                  <LogOut height={24} width={24} />
+                </span>
+                <span className="leading-relaxed max-lg:hidden">Log Out</span>
               </span>
             </SignOutButton>
           </SignedIn>

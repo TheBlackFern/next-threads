@@ -14,13 +14,51 @@ export const metadata = {
     "Strings is a new app, built by the Kilogram team, for sharing text updates and joining public conversations.",
 };
 
+// post-hoc change of name put forth as a localisation
+const localization = {
+  signUp: {
+    start: {
+      subtitle: "to continue to Strings",
+    },
+    emailLink: {
+      subtitle: "to continue to Strings",
+    },
+    emailCode: {
+      subtitle: "to continue to Strings",
+    },
+    continue: {
+      subtitle: "to continue to Strings",
+    },
+  },
+  signIn: {
+    start: {
+      subtitle: "to continue to Strings",
+    },
+    password: {
+      subtitle: "to continue to Strings",
+    },
+    emailCode: {
+      subtitle: "to continue to Strings",
+    },
+    emailLink: {
+      subtitle: "to continue to Strings",
+    },
+    backupCodeMfa: {
+      subtitle: "to continue to Strings",
+    },
+  },
+  organizationList: {
+    subtitle: "to continue to Strings",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={localization}>
       <html lang="en">
         <body
           className={cn(
