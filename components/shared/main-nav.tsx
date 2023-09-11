@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { useTheme } from "next-themes";
 import { LogOut } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { dark } from "@clerk/themes";
 import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
 import { ModeToggle } from "../mode-toggle";
 
@@ -58,14 +56,7 @@ export function MainNav({
           </SignOutButton>
         </SignedIn>
       </div>
-      <OrganizationSwitcher
-        appearance={{
-          baseTheme: theme === "dark" ? dark : undefined,
-          elements: {
-            organizationSwitcherTrigger: "py-2 px-4 mr-2",
-          },
-        }}
-      />
+      <OrganizationSwitcher />
       <ModeToggle />
     </nav>
   );
