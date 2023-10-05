@@ -45,7 +45,7 @@ export function MainNav({
           </span>
         </Link>
       </div>
-      <div className="md:hidden">
+      <div className="mr-3 md:hidden">
         <SignedIn>
           <SignOutButton>
             <LogOut
@@ -56,7 +56,9 @@ export function MainNav({
           </SignOutButton>
         </SignedIn>
       </div>
-      <OrganizationSwitcher />
+      <div className="max-md:hidden">
+        <OrganizationSwitcher />
+      </div>
       <ModeToggle />
     </nav>
   );

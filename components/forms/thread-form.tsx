@@ -57,11 +57,7 @@ const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
         className="mt-5 flex flex-col justify-start gap-1"
       >
         <div className="flex flex-row items-center justify-between">
-          <Avatar
-            src={userImage}
-            alt="user's profile photo"
-            className="border"
-          />
+          <Avatar src={userImage} alt="user's profile photo" />
           <Button type="submit" className="rounded-full font-semibold">
             Post String
           </Button>
