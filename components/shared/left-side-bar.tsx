@@ -7,6 +7,7 @@ import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs";
 import { LogOut } from "lucide-react";
 import { sideBarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "../ui/button";
 
 type Props = {};
 
@@ -32,7 +33,8 @@ const LeftSideBar = (props: Props) => {
               href={link.route}
               key={link.label}
               className={cn(
-                `relative flex items-center justify-start gap-4 rounded-lg p-4 hover:bg-accent hover:text-accent-foreground`,
+                buttonVariants({ variant: "ghost" }),
+                `relative flex h-fit items-center justify-start gap-4 p-4`,
                 isActive &&
                   "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground/90",
               )}
@@ -51,15 +53,17 @@ const LeftSideBar = (props: Props) => {
             </Link>
           );
         })}
-        <div className="mb-5 mt-auto hidden items-end justify-start gap-4 rounded-lg p-4 hover:bg-accent hover:text-accent-foreground md:flex">
+        <div className="mb-5 mt-auto hidden md:block">
           <SignedIn>
             <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-              <span className="flex cursor-pointer gap-4 leading-relaxed max-md:hidden">
-                <span className="text-primary">
-                  <LogOut height={24} width={24} />
-                </span>
-                <span className="leading-relaxed max-lg:hidden">Log Out</span>
-              </span>
+              <Button variant="ghost" className="h-fit w-full p-4">
+                <p className="flex  w-full justify-start gap-4  leading-relaxed max-md:hidden">
+                  <span className="text-primary">
+                    <LogOut height={24} width={24} />
+                  </span>
+                  <span className="leading-relaxed max-lg:hidden">Log Out</span>
+                </p>
+              </Button>
             </SignOutButton>
           </SignedIn>
         </div>

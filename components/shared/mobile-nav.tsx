@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { sideBarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "../ui/button";
 type Props = {};
 
 const MobileNav = (props: Props) => {
@@ -25,16 +26,19 @@ const MobileNav = (props: Props) => {
                 href={link.route}
                 key={link.label}
                 className={cn(
-                  `relative flex flex-col items-center gap-2 rounded-lg p-2 hover:bg-accent hover:text-accent-foreground  sm:flex-1 sm:px-2 sm:py-2.5`,
+                  buttonVariants({ variant: "ghost" }),
+                  `relative h-fit p-2 sm:px-2 sm:py-2.5`,
                   isActive &&
-                    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-secondary/90",
+                    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground/90",
                 )}
               >
                 {/* FIXME change to HeroIcons and use <Image /> so it shrinks*/}
-                {link.icon}
-                <span className="text-xs font-medium max-sm:text-[10px]">
-                  {link.label.split(/\s+/)[0]}
-                </span>
+                <div className="flex flex-col items-center">
+                  {link.icon}
+                  <span className="text-xs font-medium max-sm:text-[10px]">
+                    {link.label.split(/\s+/)[0]}
+                  </span>
+                </div>
               </Link>
             );
         })}

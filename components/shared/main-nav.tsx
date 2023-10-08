@@ -6,6 +6,7 @@ import { LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
 import { ModeToggle } from "../mode-toggle";
+import { Button, buttonVariants } from "../ui/button";
 
 export function MainNav({
   className,
@@ -24,7 +25,10 @@ export function MainNav({
       <div className="mr-auto flex items-center space-x-4 lg:space-x-6">
         <Link
           href="/"
-          className="flex items-center justify-center gap-0.5 text-lg font-medium transition-colors hover:text-primary"
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "flex items-center justify-center gap-0.5 text-lg font-medium transition-colors hover:text-primary",
+          )}
         >
           {/* TODO: make svgs a separate component (svgr?) */}
           <div className="h-10 w-10">
@@ -48,15 +52,17 @@ export function MainNav({
       <div className="mr-3 md:hidden">
         <SignedIn>
           <SignOutButton>
-            <LogOut
-              height={24}
-              width={24}
-              className="cursor-pointer hover:invert-[0.2]"
-            />
+            <Button variant="outline">
+              <LogOut
+                height={24}
+                width={24}
+                className="cursor-pointer hover:invert-[0.2]"
+              />
+            </Button>
           </SignOutButton>
         </SignedIn>
       </div>
-      <div className="max-md:hidden">
+      <div className="mr-5 max-md:hidden">
         <OrganizationSwitcher />
       </div>
       <ModeToggle />

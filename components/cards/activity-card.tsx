@@ -4,7 +4,8 @@ import { Card } from "../ui/card";
 import Avatar from "../ui/avatar";
 import Link from "next/link";
 import { Reply } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type ActivityCardProps = {
   parentThread: IThread;
@@ -16,7 +17,10 @@ const ActivityCard = ({ parentThread, replyThread }: ActivityCardProps) => {
     <Card className="flex flex-col gap-1 p-4 sm:p-6">
       <Link
         href={`/string/${parentThread.id}`}
-        className="flex items-center gap-3"
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "flex h-fit w-fit items-center gap-3 p-0",
+        )}
       >
         <div className="max-sm:hidden">
           <Avatar
@@ -55,20 +59,24 @@ const ActivityCard = ({ parentThread, replyThread }: ActivityCardProps) => {
           <div className="flex flex-col max-sm:text-sm">
             <div className="flex ">
               <Link
-                className="flex gap-3"
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "flex h-fit gap-3 p-0",
+                )}
                 href={`/profile/${replyThread.author.id}`}
               >
-                <span className="line-clamp-1 hidden w-fit cursor-pointer break-all font-semibold xs:inline">
-                  {`${replyThread.author.name}`}
-                </span>
-                <span className="line-clamp-1 w-fit cursor-pointer break-all text-muted-foreground">
-                  {`\@${replyThread.author.username}`}
-                </span>
+                <p className="line-clamp-1 w-fit cursor-pointer space-x-2 break-all">
+                  <span className="hidden font-semibold sm:inline">
+                    {`${replyThread.author.name}`}
+                  </span>
+                  <span className="text-muted-foreground">
+                    {`\@${replyThread.author.username}`}
+                  </span>
+                </p>
               </Link>
-              <span className="ml-2 flex w-fit gap-2 text-muted-foreground max-sm:hidden">
-                <span className="text-[26px] font-bold leading-none">·</span>
-                {`${replyThread.created.toLocaleDateString()}`}
-              </span>
+              <p className="ml-2 hidden h-fit w-fit space-x-2 text-sm text-muted-foreground sm:inline ">
+                {`• ${replyThread.created.toLocaleDateString()}`}
+              </p>
             </div>
             <p className="line-clamp-1 break-all">{replyThread.text}</p>
           </div>
