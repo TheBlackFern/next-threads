@@ -46,10 +46,8 @@ const Avatar = ({
         alt={alt}
         // width={pixelValues[size!]}
         // height={pixelValues[size!]}
-        className="rounded-full border"
+        className="rounded-full border fill-none object-cover object-center"
         layout="fill"
-        objectFit="cover"
-        objectPosition="center"
         {...props}
       />
     </div>
