@@ -15,6 +15,7 @@ async function Page() {
 
   return (
     <>
+      <h1 className="text-2xl font-semibold">Post</h1>
       <ThreadForm userId={userInfo._id} userImage={userInfo.image} />
     </>
   );
