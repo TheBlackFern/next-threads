@@ -1,5 +1,4 @@
 import ThreadCard from "@/components/cards/thread-card";
-import ErrorMessage from "@/components/ui/error";
 import { fetchThreads } from "@/lib/actions/thread.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
