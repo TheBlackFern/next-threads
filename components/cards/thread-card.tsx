@@ -32,7 +32,7 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
         >
           <Avatar src={thread.author.image} alt="author's profile photo" />
         </Link>
-        <div className="mt-0.5 h-full w-0.5 rounded-full bg-muted-foreground" />
+        <div className="mt-0.5 h-full w-0.5 rounded-full bg-primary" />
       </div>
       <div className="flex flex-col gap-1.5">
         <div className="flex">
