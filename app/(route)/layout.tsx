@@ -7,7 +7,9 @@ import {
   RightSideBar,
   MainNav,
 } from "@/components/shared";
-import Providers from "./providers";
+import Providers from "../providers";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={inter.className}>
+      {/* <Providers> */}
+      <body className={inter.className}>
+        <Providers>
           <MainNav />
 
           <div className="flex flex-row">
@@ -38,8 +41,9 @@ export default function RootLayout({
           </div>
 
           <MobileNav />
-        </body>
-      </Providers>
+        </Providers>
+      </body>
+      {/* </Providers> */}
     </html>
   );
 }
