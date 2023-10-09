@@ -1,10 +1,11 @@
-import { IThread } from "@/lib/models/thread.model";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import Avatar, { avatarVariants } from "../ui/avatar";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import Avatar from "../ui/avatar";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "../ui/button";
+import { IThread } from "@/lib/models/thread.model";
 
 interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
   thread: IThread;
@@ -14,38 +15,49 @@ interface ThreadCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
   return (
-    <Card
-      className={`relative w-full bg-secondary ${
-        isComment ? "border-0 bg-background" : ""
-      }`}
+    <div
+      className={cn(
+        "relative grid w-full auto-cols-auto grid-flow-col place-content-start gap-1.5 rounded-lg border bg-secondary p-3 text-card-foreground shadow-sm",
+        isComment && "border-0 bg-background",
+      )}
     >
-      <CardContent className="mt-8 flex gap-3 pb-3">
-        <Link className="" href={`/profile/${thread.author.id}`}>
-          <div className="relative h-12 w-12">
-            <Avatar src={thread.author.image} alt="author's profile photo" />
-            <div className="absolute left-1/2 top-full mt-3 h-12 w-0.5 rounded-full bg-muted-foreground" />
-          </div>
+      <div className="flex flex-col items-center">
+        <Link
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            avatarVariants({ size: "default" }),
+            "rounded-full p-0",
+          )}
+          href={`/profile/${thread.author.id}`}
+        >
+          <Avatar src={thread.author.image} alt="author's profile photo" />
         </Link>
-        <div className="flex flex-col">
-          <div className="flex">
-            <Link className="flex gap-3" href={`/profile/${thread.author.id}`}>
-              <span className="line-clamp-1 hidden w-fit cursor-pointer break-all font-semibold sm:inline">
+        <div className="mt-0.5 h-full w-0.5 rounded-full bg-primary" />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <div className="flex">
+          <Link
+            className={cn(buttonVariants({ variant: "ghost" }), "h-fit p-0")}
+            href={`/profile/${thread.author.id}`}
+          >
+            <p className="line-clamp-1 w-fit cursor-pointer break-all">
+              <span className="hidden font-semibold sm:inline">
                 {`${thread.author.name}`}
               </span>
-              <span className="line-clamp-1 w-fit cursor-pointer break-all text-muted-foreground">
+              <span className="font-semibold text-foreground sm:ml-2 sm:font-normal sm:text-muted-foreground">
                 {`\@${thread.author.username}`}
               </span>
-            </Link>
-            <span className="ml-2 hidden w-fit gap-2 text-muted-foreground sm:flex">
-              <span className="text-[26px] font-bold leading-none">·</span>
-              {`${thread.created.toLocaleDateString()}`}
-            </span>
-          </div>
-          <p className="w-auto whitespace-pre-wrap break-all ">{thread.text}</p>
+            </p>
+          </Link>
+          <p className="ml-1.5 hidden h-fit w-fit text-sm text-muted-foreground sm:inline ">
+            {`• ${thread.created.toLocaleDateString()}`}
+          </p>
         </div>
-      </CardContent>
-      <CardFooter className="">
-        <div className="ml-14 flex flex-col gap-1">
+        <p className="w-auto whitespace-pre-wrap break-words text-sm">
+          {thread.text}
+        </p>
+
+        <div className="mt-1.5 flex flex-col items-start gap-1 pt-0">
           <div className="flex gap-3">
             <Image
               src="/assets/heart-gray.svg"
@@ -54,7 +66,10 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
               height={24}
               className="cursor-pointer object-contain"
             />
-            <Link href={`/string/${thread.id}`}>
+            <Link
+              className={cn(buttonVariants({ variant: "ghost" }), "h-fit p-0")}
+              href={`/string/${thread.id}`}
+            >
               <Image
                 src="/assets/reply.svg"
                 alt="reply icon"
@@ -80,15 +95,20 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
           </div>
           {/* isComment && thread.children.length > 0 */}
           {true && (
-            <Link href={`/string/${thread.id}`}>
-              <p className="ml-1 text-xs font-medium ">
-                {thread.children.length} replies
-              </p>
+            <Link
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "ml-1 h-fit w-fit justify-start p-0 text-sm font-medium",
+              )}
+              href={`/string/${thread.id}`}
+            >
+              {thread.children.length}{" "}
+              {thread.children.length !== 1 ? "replies" : "reply"}
             </Link>
           )}
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

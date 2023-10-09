@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { commentSchema } from "@/lib/schemas/thread";
 import * as z from "zod";
+import { SendHorizonal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,9 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
-import { createComment } from "@/lib/actions/thread.actions";
 import Avatar from "../ui/avatar";
 import { cn } from "@/lib/utils";
+import { createComment } from "@/lib/actions/thread.actions";
 
 type CommentFormProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -54,15 +55,14 @@ const CommentForm = ({
       path: pathname,
       parent: threadId,
     });
-    // TODO: reset form!
-    inputText.current!.value = "";
+    form.reset();
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(
-          "mt-5 flex flex-row items-center justify-center gap-3",
+          "mt-5 flex flex-row items-center justify-center gap-3 max-xs:gap-1",
           className,
         )}
       >
@@ -70,14 +70,14 @@ const CommentForm = ({
           control={form.control}
           name="thread"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-row items-center gap-3 space-y-0">
+            <FormItem className="flex w-full flex-row items-center gap-3 space-y-0 max-xs:ml-2.5 max-xs:gap-1">
               <FormLabel className="space-y-0 text-base font-semibold text-primary">
-                <Avatar
-                  src={currentUserAvatar}
-                  alt="current user's profile photo"
-                />
                 <span className="sr-only">Comment</span>
               </FormLabel>
+              <Avatar
+                src={currentUserAvatar}
+                alt="current user's profile photo"
+              />
               <div className="relative flex w-full flex-col gap-1">
                 <FormControl ref={inputText}>
                   <Input type="text" placeholder="Comment..." {...field} />
@@ -104,11 +104,8 @@ const CommentForm = ({
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="rounded-3xl px-8 py-2 text-sm max-xs:w-full"
-        >
-          Reply
+        <Button type="submit" className="rounded-3xl py-2 text-sm max-xs:w-10">
+          <SendHorizonal size={16} className="shrink-0" />
         </Button>
       </form>
     </Form>

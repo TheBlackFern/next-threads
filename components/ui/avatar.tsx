@@ -8,7 +8,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 // also, when inside a flex container, <Image/> elements
 // shrink to accomodate other elements, but shrink just on one
 // axis, which makes it an ellipsoid instead of a circle
-const sizeVariants = cva("relative shrink-0", {
+export const avatarVariants = cva("relative shrink-0", {
   variants: {
     size: {
       default: "h-12 w-12",
@@ -23,7 +23,7 @@ const sizeVariants = cva("relative shrink-0", {
   },
 });
 type AvatarProps = React.ComponentProps<typeof Image> &
-  VariantProps<typeof sizeVariants>;
+  VariantProps<typeof avatarVariants>;
 
 // const pixelValues = {
 //   default: 48,
@@ -40,16 +40,14 @@ const Avatar = ({
   ...props
 }: AvatarProps) => {
   return (
-    <div className={cn(sizeVariants({ size }), className)}>
+    <div className={cn(avatarVariants({ size }), className)}>
       <Image
         src={src}
         alt={alt}
         // width={pixelValues[size!]}
         // height={pixelValues[size!]}
-        className="rounded-full border"
+        className="rounded-full border fill-none object-cover object-center"
         layout="fill"
-        objectFit="cover"
-        objectPosition="center"
         {...props}
       />
     </div>

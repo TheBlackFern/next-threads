@@ -54,7 +54,7 @@ const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-5 flex flex-col justify-start gap-1"
+        className="mt-5 flex w-full flex-col justify-start gap-1"
       >
         <div className="flex flex-row items-center justify-between">
           <Avatar src={userImage} alt="user's profile photo" />

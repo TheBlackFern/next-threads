@@ -1,7 +1,5 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
 
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import "../globals.css";
 import {
   MobileNav,
@@ -9,6 +7,9 @@ import {
   RightSideBar,
   MainNav,
 } from "@/components/shared";
+import Providers from "../providers";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,25 +25,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <MainNav />
+    <html lang="en">
+      {/* <Providers> */}
+      <body className={inter.className}>
+        <Providers>
+          <MainNav />
 
-            <main className="flex flex-row">
-              <LeftSideBar />
-              <section className="flex min-h-screen flex-1 flex-col items-start bg-background px-6 pb-10 pt-28 max-md:pb-32 sm:px-10">
-                <div className="w-full max-w-4xl">{children}</div>
-              </section>
-              {/* TODO: add communities */}
-              <RightSideBar />
+          <div className="flex flex-row">
+            <LeftSideBar />
+            <main className="flex min-h-screen flex-1 flex-col items-start bg-background px-6 pb-10 pt-28 max-md:pb-32 sm:px-10">
+              {children}
             </main>
+            {/* TODO: add communities */}
+            <RightSideBar />
+          </div>
 
-            <MobileNav />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          <MobileNav />
+        </Providers>
+      </body>
+      {/* </Providers> */}
+    </html>
   );
 }

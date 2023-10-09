@@ -61,6 +61,6 @@
   }
 }
 
-.cl-internal-b3fm6y {
-  @apply bg-primary text-primary-foreground;
+.cl-organizationSwitcherTrigger {
+  @apply bg-background text-foreground;
 }

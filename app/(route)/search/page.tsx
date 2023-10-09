@@ -26,7 +26,7 @@ async function Page() {
     <>
       <h1 className="text-2xl font-semibold">Search</h1>
       <WIP what="Search filter" />
-      <div className="mt-5 grid grid-cols-1 gap-2  min-[690px]:grid-cols-2 min-[765px]:grid-cols-1 min-[810px]:grid-cols-2 min-[1500px]:grid-cols-3">
+      <div className="mt-5 grid w-full grid-cols-[repeat(auto-fill,minmax(24rem,1fr))] gap-2">
         {res.users.length === 0 && (
           <p className="text-lg font-semibold">No users were found!</p>
         )}
@@ -34,6 +34,10 @@ async function Page() {
           <>
             {/* TODO: remove dups */}
             <UserCard user={user} userType={"User"} key={user.id} />
+            {/* <UserCard user={user} userType={"User"} key={user.id} />
+            <UserCard user={user} userType={"User"} key={user.id} />
+            <UserCard user={user} userType={"User"} key={user.id} />
+            <UserCard user={user} userType={"User"} key={user.id} /> */}
           </>
         ))}
       </div>
