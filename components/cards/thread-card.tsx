@@ -34,7 +34,7 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
         </Link>
         <div className="mt-0.5 h-full w-0.5 rounded-full bg-muted-foreground" />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1.5">
         <div className="flex">
           <Link
             className={cn(buttonVariants({ variant: "ghost" }), "h-fit p-0")}
