@@ -54,8 +54,7 @@ const CommentForm = ({
       path: pathname,
       parent: threadId,
     });
-    // TODO: reset form!
-    inputText.current!.value = "";
+    form.reset();
   }
   return (
     <Form {...form}>
