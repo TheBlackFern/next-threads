@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { useOrganization } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { threadSchema } from "@/lib/schemas/thread";
 import * as z from "zod";
@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,6 +28,7 @@ type ThreadFormProps = {
 const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
   const inputText = React.useRef<HTMLTextAreaElement | null>(null);
   const pathname = usePathname();
+  const { isLoaded, organization } = useOrganization();
 
   const form = useForm<z.infer<typeof threadSchema>>({
     resolver: zodResolver(threadSchema),
@@ -39,17 +39,16 @@ const ThreadForm = ({ userId, userImage }: ThreadFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof threadSchema>) {
-    // TODO: community
     await createThread({
       text: values.thread,
       author: userId,
-      community: null,
+      community: organization ? organization.id : null,
       path: pathname,
     });
 
     form.reset();
   }
-
+  if (!isLoaded) return "Loading...";
   return (
     <Form {...form}>
       <form
