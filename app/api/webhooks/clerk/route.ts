@@ -65,8 +65,8 @@ export const POST = async (request: Request) => {
       evnt?.data ?? {};
 
     try {
-      // @ts-ignore
       await createCommunity(
+        // FIXME: ts ignore what
         // @ts-ignore
         id,
         name,

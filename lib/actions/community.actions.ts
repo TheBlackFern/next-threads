@@ -177,21 +177,21 @@ export async function removeUserFromCommunity(
     connectToDB();
 
     const userIdObject = await User.findOne({ id: userId }, { _id: 1 });
-    const communityIdObject = await Community.findOne(
+    const communityObjectID = await Community.findOne(
       { id: communityId },
       { _id: 1 },
     );
 
     if (!userIdObject) throw new Error("User not found!");
-    if (!communityIdObject) throw new Error("Community not found!");
+    if (!communityObjectID) throw new Error("Community not found!");
 
     await Community.updateOne(
-      { _id: communityIdObject._id },
+      { _id: communityObjectID._id },
       { $pull: { members: userIdObject._id } },
     );
     await User.updateOne(
       { _id: userIdObject._id },
-      { $pull: { communities: communityIdObject._id } },
+      { $pull: { communities: communityObjectID._id } },
     );
 
     return { success: true };

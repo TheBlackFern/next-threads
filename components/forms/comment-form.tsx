@@ -47,7 +47,6 @@ const CommentForm = ({
   });
 
   async function onSubmit(values: z.infer<typeof commentSchema>) {
-    // TODO: community
     await createComment({
       text: values.thread,
       author: JSON.parse(currentUserId),

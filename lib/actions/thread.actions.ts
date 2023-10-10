@@ -5,6 +5,7 @@ import { getErrorMessage } from "../utils";
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
+import Community from "../models/community.model";
 
 type createThreadParams = {
   text: string;
@@ -21,14 +22,26 @@ export async function createThread({
 }: createThreadParams): Promise<void> {
   try {
     connectToDB();
+
+    const communityObjectID = await Community.findOne(
+      { id: community },
+      { _id: 1 },
+    );
+
     const newThread = await Thread.create({
       text,
       author,
-      community: community,
+      community: communityObjectID,
     });
     await User.findByIdAndUpdate(author, {
       $push: { threads: newThread.id },
     });
+
+    if (communityObjectID) {
+      await Community.findByIdAndUpdate(communityObjectID, {
+        $push: { threads: newThread._id },
+      });
+    }
 
     revalidatePath(path);
   } catch (error) {
@@ -53,6 +66,7 @@ export async function createComment({
 }: createCommentParams) {
   try {
     connectToDB();
+
     const parentThread = await Thread.findById(parent);
     if (!parentThread) throw new Error("Thread not found!");
 

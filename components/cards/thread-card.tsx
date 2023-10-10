@@ -93,6 +93,7 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
               className="cursor-pointer object-contain"
             />
           </div>
+
           {/* isComment && thread.children.length > 0 */}
           {true && (
             <Link
@@ -104,6 +105,24 @@ const ThreadCard = ({ thread, currentUserId, isComment }: ThreadCardProps) => {
             >
               {thread.children.length}{" "}
               {thread.children.length !== 1 ? "replies" : "reply"}
+            </Link>
+          )}
+
+          {/* !isComment && thread.community */}
+          {!isComment && thread.community && (
+            <Link
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "ml-1 h-fit w-fit justify-start p-0 text-sm font-medium",
+              )}
+              href={`/communities/${thread.community.id}`}
+            >
+              <Avatar
+                src={thread.community.image}
+                alt={"community avatar"}
+                size={"xs"}
+              />
+              <p>from {thread.community.name}</p>
             </Link>
           )}
         </div>
